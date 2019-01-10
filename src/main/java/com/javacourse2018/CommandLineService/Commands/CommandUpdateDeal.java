@@ -2,7 +2,6 @@ package com.javacourse2018.CommandLineService.Commands;
 
 import com.javacourse2018.CommandLineService.Command;
 import com.javacourse2018.Utils.CommandParser;
-import com.javacourse2018.entity.Status;
 
 public class CommandUpdateDeal extends Command {
 
