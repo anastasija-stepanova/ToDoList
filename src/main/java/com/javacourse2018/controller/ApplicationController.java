@@ -20,8 +20,8 @@ public class ApplicationController {
 
 
   private class Command {
-    public String commandName;
-    public String arguments;
+    private String commandName;
+    private String arguments;
   }
 
   public ApplicationController() {
