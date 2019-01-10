@@ -8,4 +8,7 @@ public interface CommandLineServiceDelegate {
   void addDeal(String listName, String dealName);
   void removeDeal(String listName, String dealName);
   void printListTitles();
+  void printList(String listName);
+  void add(String listName);
+  void remove(String listName);
 }

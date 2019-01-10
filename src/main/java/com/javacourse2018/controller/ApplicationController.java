@@ -9,6 +9,14 @@ import java.util.regex.Pattern;
 
 public class ApplicationController {
   private static final String PRINT = "print";
+  private static final String PRINT_LIST = "print_list";
+  private static final String PRINT_LIST_TITLES = "print_list_title";
+  private static final String ADD = "add";
+  private static final String REMOVE = "remove";
+  private static final String ADD_DEAL = "add_deal";
+  private static final String REMOVE_DEAL = "remove_deal";
+  private static final String UPDATE_DEAL = "update_deal";
+  private static final String EXIT = "exit";
 
 
   private class Command {
@@ -28,25 +36,31 @@ public class ApplicationController {
       Command command = initCommandByString(commandLine);
 
       switch (command.commandName) {
-        case "create":
+        case PRINT:
           System.out.println("execute command create with arguments: " + command.arguments);
           break;
-        case "remove":
+        case PRINT_LIST:
           System.out.println("execute command remove with arguments: " + command.arguments);
           break;
-        case "add":
+        case PRINT_LIST_TITLES:
           System.out.println("execute command add with arguments: " + command.arguments);
           break;
-        case "edit":
+        case ADD:
           System.out.println("execute command edit with arguments: " + command.arguments);
           break;
-        case "delete":
+        case REMOVE:
           System.out.println("execute command delete with arguments: " + command.arguments);
           break;
-        case PRINT:
+        case ADD_DEAL:
           System.out.println("execute command display");
           break;
-        case "exit":
+        case REMOVE_DEAL:
+          System.out.println("execute command display");
+          break;
+        case UPDATE_DEAL:
+          System.out.println("execute command display");
+          break;
+        case EXIT:
           System.exit(0);
           break;
         default:
