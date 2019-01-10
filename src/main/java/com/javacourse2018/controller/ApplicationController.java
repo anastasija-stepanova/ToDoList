@@ -8,6 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ApplicationController {
+  private static final String PRINT = "print";
+
 
   private class Command {
     public String commandName;
@@ -41,7 +43,7 @@ public class ApplicationController {
         case "delete":
           System.out.println("execute command delete with arguments: " + command.arguments);
           break;
-        case "display":
+        case PRINT:
           System.out.println("execute command display");
           break;
         case "exit":
