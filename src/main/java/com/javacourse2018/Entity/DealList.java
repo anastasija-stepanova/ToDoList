@@ -1,4 +1,4 @@
-package com.javacourse2018.entity;
+package com.javacourse2018.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,5 @@ public class DealList {
 
   public List<Deal> getDealList() {
     return dealList;
-  }
-
-  public void setDealList(List<Deal> dealList) {
-    this.dealList = dealList;
   }
 }

@@ -1,10 +1,8 @@
 package com.javacourse2018.Service;
 
-import com.javacourse2018.controller.ApplicationController;
-import com.javacourse2018.entity.Deal;
-import com.javacourse2018.entity.DealList;
-import com.javacourse2018.entity.Status;
-import sun.rmi.runtime.Log;
+import com.javacourse2018.Entity.Deal;
+import com.javacourse2018.Entity.DealList;
+import com.javacourse2018.Entity.Status;
 
 import java.util.List;
 

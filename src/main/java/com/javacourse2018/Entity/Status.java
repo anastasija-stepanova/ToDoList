@@ -1,4 +1,4 @@
-package com.javacourse2018.entity;
+package com.javacourse2018.Entity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,6 @@ public enum Status {
     return stringToStatus;
   }
 
-  @Override
   public String toString() {
     return this.name;
   }

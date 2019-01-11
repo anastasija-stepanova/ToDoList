@@ -1,4 +1,4 @@
-package com.javacourse2018.controller;
+package com.javacourse2018.Controller;
 
 import com.javacourse2018.CommandLineService.Command;
 import com.javacourse2018.CommandLineService.CommandLineServiceDelegate;
@@ -6,9 +6,9 @@ import com.javacourse2018.Service.DealListInteractor;
 import com.javacourse2018.Service.DealListInteractorInterface;
 import com.javacourse2018.Service.Loader;
 import com.javacourse2018.Utils.CommandParser;
-import com.javacourse2018.entity.Deal;
-import com.javacourse2018.entity.DealList;
-import com.javacourse2018.entity.Status;
+import com.javacourse2018.Entity.Deal;
+import com.javacourse2018.Entity.DealList;
+import com.javacourse2018.Entity.Status;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -158,5 +158,19 @@ public class ApplicationController implements CommandLineServiceDelegate {
       dealListInterator.setDealList(list);
       this.arrayOfDealList.add(dealListInterator);
     }
+  }
+
+  public void printManual() {
+    System.out.println("add \"listName\"");
+    System.out.println("remove \"listName\"");
+    System.out.println("add_deal \"listName\" \"dealName\"");
+    System.out.println("remove_deal \"listName\" \"dealName\"");
+    System.out.println("update_deal \"listName\" \"dealName\" \"newDealName\" \"status\"");
+    System.out.println("print");
+    System.out.println("print_list \"listName\"");
+    System.out.println("print_list_titles \"listName\"");
+    System.out.println("save \"path\"");
+    System.out.println("load \"path\"");
+    System.out.println("exit");
   }
 }

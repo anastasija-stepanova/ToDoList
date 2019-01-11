@@ -2,9 +2,9 @@ package com.javacourse2018.Utils;
 
 import com.javacourse2018.CommandLineService.Command;
 import com.javacourse2018.CommandLineService.Commands.*;
-import com.javacourse2018.entity.CommandName;
-import com.javacourse2018.entity.RawCommand;
-import com.javacourse2018.entity.Status;
+import com.javacourse2018.Entity.CommandName;
+import com.javacourse2018.Entity.RawCommand;
+import com.javacourse2018.Entity.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,6 @@ public class CommandParser {
     Pattern p = Pattern.compile("([\\w]*)\\s*(.*)");
     Matcher m = p.matcher(command);
 
-    RawCommand resultCommand = new RawCommand();
     if (m.matches()) {
       String rawCommandName = m.group(1).toLowerCase();
       CommandName commandName = CommandName.fromString(rawCommandName);

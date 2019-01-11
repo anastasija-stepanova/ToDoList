@@ -1,6 +1,6 @@
 package com.javacourse2018.Service;
 
-import com.javacourse2018.entity.DealList;
+import com.javacourse2018.Entity.DealList;
 
 import java.util.List;
 
