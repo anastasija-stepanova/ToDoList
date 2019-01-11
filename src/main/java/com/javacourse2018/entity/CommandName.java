@@ -12,7 +12,9 @@ public enum CommandName {
   ADD_DEAL("add_deal"),
   REMOVE_DEAL("remove_deal"),
   UPDATE_DEAL("update_deal"),
-  EXIT("exit");
+  EXIT("exit"),
+  LOAD("load"),
+  SAVE("save");
 
   private final String name;
 
@@ -31,6 +33,8 @@ public enum CommandName {
     stringToCommandName.put(REMOVE_DEAL.name, REMOVE_DEAL);
     stringToCommandName.put(UPDATE_DEAL.name, UPDATE_DEAL);
     stringToCommandName.put(EXIT.name, EXIT);
+    stringToCommandName.put(LOAD.name, LOAD);
+    stringToCommandName.put(SAVE.name, SAVE);
     return stringToCommandName;
   }
 
@@ -45,6 +49,9 @@ public enum CommandName {
     stringToParamsCount.put(REMOVE_DEAL.name, 2);
     stringToParamsCount.put(UPDATE_DEAL.name, 4);
     stringToParamsCount.put(EXIT.name, 0);
+    stringToParamsCount.put(LOAD.name, 1);
+    stringToParamsCount.put(SAVE.name, 1);
+
     return stringToParamsCount;
   }
 

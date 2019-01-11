@@ -1,5 +1,10 @@
 package com.javacourse2018.Service;
 
-public interface LoaderInterface {
+import com.javacourse2018.entity.DealList;
 
+import java.util.List;
+
+public interface LoaderInterface {
+  void save(String path, List<DealList> dealLists);
+  void load(String path, List<DealList> dealLists);
 }

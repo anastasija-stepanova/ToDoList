@@ -73,6 +73,12 @@ public class CommandParser {
       case EXIT:
         cmd = new CommandExit();
         break;
+      case SAVE:
+        cmd = new CommandSave();
+        break;
+      case LOAD:
+        cmd = new CommandLoad();
+        break;
       default:
         throw new IllegalArgumentException("Unsupported command: " + commandName.toString());
     }

@@ -4,6 +4,7 @@ import com.javacourse2018.CommandLineService.Command;
 import com.javacourse2018.CommandLineService.CommandLineServiceDelegate;
 import com.javacourse2018.Service.DealListInteractor;
 import com.javacourse2018.Service.DealListInteractorInterface;
+import com.javacourse2018.Service.Loader;
 import com.javacourse2018.Utils.CommandParser;
 import com.javacourse2018.entity.Deal;
 import com.javacourse2018.entity.DealList;
@@ -131,5 +132,20 @@ public class ApplicationController implements CommandLineServiceDelegate {
 
   public void exit() {
     System.exit(0);
+  }
+
+  public void save(String path) {
+    List<DealList> list = new ArrayList<>();
+
+    for (DealListInteractorInterface deal: arrayOfDealList) {
+      list.add(deal.getDeals());
+    }
+
+    Loader loader = new Loader();
+    loader.save(path, list);
+  }
+
+  public void load(String path) {
+    return;
   }
 }
