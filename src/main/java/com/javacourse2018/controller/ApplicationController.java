@@ -1,86 +1,135 @@
 package com.javacourse2018.controller;
 
+import com.javacourse2018.CommandLineService.Command;
+import com.javacourse2018.CommandLineService.CommandLineServiceDelegate;
+import com.javacourse2018.Service.DealListInteractor;
+import com.javacourse2018.Service.DealListInteractorInterface;
+import com.javacourse2018.Utils.CommandParser;
+import com.javacourse2018.entity.Deal;
+import com.javacourse2018.entity.DealList;
+import com.javacourse2018.entity.Status;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ApplicationController {
-  private static final String PRINT = "print";
-  private static final String PRINT_LIST = "print_list";
-  private static final String PRINT_LIST_TITLES = "print_list_title";
-  private static final String ADD = "add";
-  private static final String REMOVE = "remove";
-  private static final String ADD_DEAL = "add_deal";
-  private static final String REMOVE_DEAL = "remove_deal";
-  private static final String UPDATE_DEAL = "update_deal";
-  private static final String EXIT = "exit";
-
-
-  private class Command {
-    private String commandName;
-    private String arguments;
-  }
+public class ApplicationController implements CommandLineServiceDelegate {
+  private List<DealListInteractorInterface> arrayOfDealList;
 
   public ApplicationController() {
-
+    this.arrayOfDealList = new ArrayList<>();
   }
 
   public void process(InputStream input) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(input));
-
+    CommandParser parser = new CommandParser();
     String commandLine;
     while ((commandLine = br.readLine()) != null) {
-      Command command = initCommandByString(commandLine);
+      try {
+        Command command = parser.parseRawCommand(commandLine);
+        command.setDelegate(this);
+        command.route();
+      } catch (IllegalArgumentException ex) {
+        System.out.println(ex.getLocalizedMessage());
+      }
 
-      switch (command.commandName) {
-        case PRINT:
-          System.out.println("execute command create with arguments: " + command.arguments);
-          break;
-        case PRINT_LIST:
-          System.out.println("execute command remove with arguments: " + command.arguments);
-          break;
-        case PRINT_LIST_TITLES:
-          System.out.println("execute command add with arguments: " + command.arguments);
-          break;
-        case ADD:
-          System.out.println("execute command edit with arguments: " + command.arguments);
-          break;
-        case REMOVE:
-          System.out.println("execute command delete with arguments: " + command.arguments);
-          break;
-        case ADD_DEAL:
-          System.out.println("execute command display");
-          break;
-        case REMOVE_DEAL:
-          System.out.println("execute command display");
-          break;
-        case UPDATE_DEAL:
-          System.out.println("execute command display");
-          break;
-        case EXIT:
-          System.exit(0);
-          break;
-        default:
-          System.out.println("invalid command: " + command.commandName);
+    }
+  }
+
+  public void updateDeal(String listName, String dealName, String newName, Status status) {
+    for (DealListInteractorInterface dealList: this.arrayOfDealList) {
+      DealList deals = dealList.getDeals();
+
+      for (Deal deal: deals.getDealList()) {
+        if (deal.getTitle().equals(dealName)) {
+          if (newName != null) {
+            deal.setTitle(newName);
+          }
+          if (status != null) {
+            deal.setStatus(status);
+          }
+          return;
+        }
+      }
+      System.out.println("No such deal in " + listName);
+    }
+    System.out.println("No such list");
+  }
+
+  public void print() {
+    for (DealListInteractorInterface dealList: this.arrayOfDealList) {
+      DealList deals = dealList.getDeals();
+      System.out.println("Title: " + deals.getTitle());
+
+      for (Deal deal: deals.getDealList()) {
+        System.out.println("\t Deal: " + deal.getTitle() + " " + deal.getStatus().toString());
       }
     }
   }
 
-  private Command initCommandByString(String commandLine) throws IllegalArgumentException {
-    Pattern p = Pattern.compile("([\\w]*)\\s*(.*)");
-    Matcher m = p.matcher(commandLine);
-
-    Command resultCommand = new Command();
-    if (m.matches()) {
-      resultCommand.commandName = m.group(1).toLowerCase();
-      resultCommand.arguments = m.group(2);
-    } else {
-      throw new IllegalArgumentException("Invalid command format: " + commandLine);
+  public void addDeal(String listName, String dealName) {
+    for (DealListInteractorInterface list: this.arrayOfDealList) {
+      if (list.getDeals().getTitle().equals(listName)) {
+        list.addDeal(dealName);
+        return;
+      }
     }
+    System.out.println("No such deal");
+  }
 
-    return resultCommand;
+  public void removeDeal(String listName, String dealName) {
+    for (DealListInteractorInterface list: this.arrayOfDealList) {
+      if (list.getDeals().getTitle().equals(listName)) {
+        list.removeDeal(dealName);
+        return;
+      }
+    }
+    System.out.println("No such deal");
+  }
+
+  public void printListTitles() {
+    for (DealListInteractorInterface dealList: this.arrayOfDealList) {
+      DealList deals = dealList.getDeals();
+      System.out.println("Title: " + deals.getTitle());
+    }
+  }
+
+  public void printList(String listName) {
+    for (DealListInteractorInterface list: this.arrayOfDealList) {
+      if (list.getDeals().getTitle().equals(listName)) {
+        for (Deal deal: list.getDeals().getDealList()) {
+          System.out.println("\t Deal: " + deal.getTitle() + " " + deal.getStatus().toString());
+        }
+        return;
+      }
+    }
+    System.out.println("No such deal");
+  }
+
+  public void add(String listName) {
+    DealList dealList = new DealList();
+    dealList.setTitle(listName);
+
+    DealListInteractorInterface dealListElement = new DealListInteractor();
+    dealListElement.setTitle(listName);
+
+    this.arrayOfDealList.add(dealListElement);
+  }
+
+  public void remove(String listName) {
+    for (DealListInteractorInterface list: this.arrayOfDealList) {
+      if (list.getDeals().getTitle().equals(listName)) {
+        this.arrayOfDealList.remove(list);
+        return;
+      }
+    }
+    System.out.println("No such deal");
+  }
+
+  public void exit() {
+    System.exit(0);
   }
 }

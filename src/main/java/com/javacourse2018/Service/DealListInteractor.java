@@ -17,6 +17,11 @@ public class DealListInteractor implements DealListInteractorInterface {
     this.currentIndex = 0;
   }
 
+  public void setTitle(String title) {
+    this.list.setTitle(title);
+  }
+
+
   public void addDeal(String title) {
     Deal newDeal = new Deal();
     newDeal.setId(currentIndex);

@@ -1,16 +1,14 @@
 package com.javacourse2018.CommandLineService.Commands;
 
 import com.javacourse2018.CommandLineService.Command;
-import com.javacourse2018.Utils.CommandParser;
+import com.javacourse2018.entity.Status;
 
 public class CommandUpdateDeal extends Command {
-
-  private CommandParser commandParser = new CommandParser();
-  private CommandParser.FourParams params = commandParser.initFourParamsByString(parameters);
-
   public void route() {
     if (delegate != null) {
-      delegate.updateDeal(params.param1, params.param2, params.param3, params.param4);
+      // Парсер уже проверил что всэ ок
+      Status status = Status.fromString(rawCommand.getArguments().get(3));
+      delegate.updateDeal(rawCommand.getArguments().get(0), rawCommand.getArguments().get(1), rawCommand.getArguments().get(2), status);
     }
   }
 }

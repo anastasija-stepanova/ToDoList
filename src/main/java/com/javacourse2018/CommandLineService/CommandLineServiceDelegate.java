@@ -11,4 +11,5 @@ public interface CommandLineServiceDelegate {
   void printList(String listName);
   void add(String listName);
   void remove(String listName);
+  void exit();
 }

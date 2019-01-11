@@ -1,11 +1,12 @@
 package com.javacourse2018.CommandLineService.Commands;
 
 import com.javacourse2018.CommandLineService.Command;
+import com.javacourse2018.Utils.CommandParser;
 
-public class CommandRemoveDeal extends Command {
+public class CommandExit extends Command {
   public void route() {
     if (delegate != null) {
-      delegate.removeDeal(rawCommand.getArguments().get(0), rawCommand.getArguments().get(1));
+      delegate.exit();
     }
   }
 }
