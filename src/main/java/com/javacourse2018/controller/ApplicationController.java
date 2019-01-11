@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ApplicationController implements CommandLineServiceDelegate {
@@ -146,6 +147,16 @@ public class ApplicationController implements CommandLineServiceDelegate {
   }
 
   public void load(String path) {
-    return;
+    Loader loader = new Loader();
+    List<DealList> dealList = loader.load(path);
+    if (dealList == null) {
+      System.out.println("Parsing error");
+      return;
+    }
+    for (DealList list: dealList) {
+      DealListInteractorInterface dealListInterator = new DealListInteractor();
+      dealListInterator.setDealList(list);
+      this.arrayOfDealList.add(dealListInterator);
+    }
   }
 }

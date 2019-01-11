@@ -5,6 +5,7 @@ import com.javacourse2018.entity.Status;
 
 
 public interface DealListInteractorInterface {
+  void setDealList(DealList dealList);
   void setTitle(String title);
   void addDeal(String title);
   void removeDeal(String title);

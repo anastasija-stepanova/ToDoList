@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface LoaderInterface {
   void save(String path, List<DealList> dealLists);
-  void load(String path, List<DealList> dealLists);
+  List<DealList> load(String path);
 }

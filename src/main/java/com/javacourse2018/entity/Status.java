@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Status {
-  DONE("done"),
-  CANCEL("cancel"),
-  IN_PROGRESS("in_progress");
+  DONE("DONE"),
+  CANCEL("CANCEL"),
+  IN_PROGRESS("IN_PROGRESS");
 
   private final String name;
 
@@ -30,5 +30,4 @@ public enum Status {
   public static Status fromString(String status) {
     return getStatusName().get(status);
   }
-
 }

@@ -10,11 +10,14 @@ import java.util.List;
 
 public class DealListInteractor implements DealListInteractorInterface {
   private DealList list;
-  private Integer currentIndex;
 
   public DealListInteractor() {
     this.list = new DealList();
-    this.currentIndex = 0;
+  }
+
+  @Override
+  public void setDealList(DealList dealList) {
+    this.list = dealList;
   }
 
   public void setTitle(String title) {
@@ -24,8 +27,6 @@ public class DealListInteractor implements DealListInteractorInterface {
 
   public void addDeal(String title) {
     Deal newDeal = new Deal();
-    newDeal.setId(currentIndex);
-    currentIndex++;
     newDeal.setStatus(Status.IN_PROGRESS);
     newDeal.setTitle(title);
 
