@@ -1,7 +1,7 @@
 package com.javacourse2018.CommandLineService.Commands;
 
 import com.javacourse2018.CommandLineService.Command;
-import com.javacourse2018.entity.Status;
+import com.javacourse2018.Entity.Status;
 
 public class CommandUpdateDeal extends Command {
   public void route() {

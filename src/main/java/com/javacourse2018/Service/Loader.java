@@ -1,8 +1,7 @@
 package com.javacourse2018.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javacourse2018.entity.DealList;
-import com.javacourse2018.entity.JSONDealList;
+import com.javacourse2018.Entity.DealList;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,13 +1,10 @@
 package com.javacourse2018.Service;
 
-import com.javacourse2018.entity.Deal;
-import com.javacourse2018.entity.DealList;
+import com.javacourse2018.Entity.Deal;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class DealListInteractorTest {
 

@@ -1,4 +1,4 @@
-package com.javacourse2018.entity;
+package com.javacourse2018.Entity;
 
 public class Deal {
   private Integer id;

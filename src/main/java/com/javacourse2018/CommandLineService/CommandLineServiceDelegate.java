@@ -1,9 +1,6 @@
 package com.javacourse2018.CommandLineService;
 
-import com.javacourse2018.entity.DealList;
-import com.javacourse2018.entity.Status;
-
-import java.util.List;
+import com.javacourse2018.Entity.Status;
 
 public interface CommandLineServiceDelegate {
   void updateDeal(String listName, String dealName, String newName, Status status);
