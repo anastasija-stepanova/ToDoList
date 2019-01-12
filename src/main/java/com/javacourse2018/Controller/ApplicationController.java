@@ -10,12 +10,7 @@ import com.javacourse2018.Entity.Deal;
 import com.javacourse2018.Entity.DealList;
 import com.javacourse2018.Entity.Status;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ApplicationController implements CommandLineServiceDelegate {
@@ -25,23 +20,14 @@ public class ApplicationController implements CommandLineServiceDelegate {
     this.arrayOfDealList = new ArrayList<>();
   }
 
-  public void process(InputStream input) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(input));
+  public void nextCommand(String commandLine) {
     CommandParser parser = new CommandParser();
-    String commandLine;
-    while ((commandLine = br.readLine()) != null) {
-      try {
-        Command command = parser.parseRawCommand(commandLine);
-        command.setDelegate(this);
-        command.route();
-      } catch (IllegalArgumentException ex) {
-        System.out.println(ex.getLocalizedMessage());
-      }
-
-    }
+    Command command = parser.parseRawCommand(commandLine);
+    command.setDelegate(this);
+    command.route();
   }
 
-  public void updateDeal(String listName, String dealName, String newName, Status status) {
+  public boolean updateDeal(String listName, String dealName, String newName, Status status) {
     for (DealListInteractorInterface dealList: this.arrayOfDealList) {
       DealList deals = dealList.getDeals();
 
@@ -53,15 +39,16 @@ public class ApplicationController implements CommandLineServiceDelegate {
           if (status != null) {
             deal.setStatus(status);
           }
-          return;
+          return false;
         }
       }
       System.out.println("No such deal in " + listName);
     }
     System.out.println("No such list");
+    return true;
   }
 
-  public void print() {
+  public boolean print() {
     for (DealListInteractorInterface dealList: this.arrayOfDealList) {
       DealList deals = dealList.getDeals();
       System.out.println("Title: " + deals.getTitle());
@@ -70,48 +57,53 @@ public class ApplicationController implements CommandLineServiceDelegate {
         System.out.println("\t Deal: " + deal.getTitle() + " " + deal.getStatus().toString());
       }
     }
+    return true;
   }
 
-  public void addDeal(String listName, String dealName) {
+  public boolean addDeal(String listName, String dealName) {
     for (DealListInteractorInterface list: this.arrayOfDealList) {
       if (list.getDeals().getTitle().equals(listName)) {
         list.addDeal(dealName);
-        return;
+        return false;
       }
     }
     System.out.println("No such deal");
+    return true;
   }
 
-  public void removeDeal(String listName, String dealName) {
+  public boolean removeDeal(String listName, String dealName) {
     for (DealListInteractorInterface list: this.arrayOfDealList) {
       if (list.getDeals().getTitle().equals(listName)) {
         list.removeDeal(dealName);
-        return;
+        return false;
       }
     }
     System.out.println("No such deal");
+    return true;
   }
 
-  public void printListTitles() {
+  public boolean printListTitles() {
     for (DealListInteractorInterface dealList: this.arrayOfDealList) {
       DealList deals = dealList.getDeals();
       System.out.println("Title: " + deals.getTitle());
     }
+    return true;
   }
 
-  public void printList(String listName) {
+  public boolean printList(String listName) {
     for (DealListInteractorInterface list: this.arrayOfDealList) {
       if (list.getDeals().getTitle().equals(listName)) {
         for (Deal deal: list.getDeals().getDealList()) {
           System.out.println("\t Deal: " + deal.getTitle() + " " + deal.getStatus().toString());
         }
-        return;
+        return false;
       }
     }
     System.out.println("No such deal");
+    return true;
   }
 
-  public void add(String listName) {
+  public boolean add(String listName) {
     DealList dealList = new DealList();
     dealList.setTitle(listName);
 
@@ -119,23 +111,26 @@ public class ApplicationController implements CommandLineServiceDelegate {
     dealListElement.setTitle(listName);
 
     this.arrayOfDealList.add(dealListElement);
+    return true;
   }
 
-  public void remove(String listName) {
+  public boolean remove(String listName) {
     for (DealListInteractorInterface list: this.arrayOfDealList) {
       if (list.getDeals().getTitle().equals(listName)) {
         this.arrayOfDealList.remove(list);
-        return;
+        return false;
       }
     }
     System.out.println("No such deal");
+    return true;
   }
 
-  public void exit() {
+  public boolean exit() {
     System.exit(0);
+    return true;
   }
 
-  public void save(String path) {
+  public boolean save(String path) {
     List<DealList> list = new ArrayList<>();
 
     for (DealListInteractorInterface deal: arrayOfDealList) {
@@ -144,23 +139,25 @@ public class ApplicationController implements CommandLineServiceDelegate {
 
     Loader loader = new Loader();
     loader.save(path, list);
+    return true;
   }
 
-  public void load(String path) {
+  public boolean load(String path) {
     Loader loader = new Loader();
     List<DealList> dealList = loader.load(path);
     if (dealList == null) {
       System.out.println("Parsing error");
-      return;
+      return false;
     }
     for (DealList list: dealList) {
       DealListInteractorInterface dealListInterator = new DealListInteractor();
       dealListInterator.setDealList(list);
       this.arrayOfDealList.add(dealListInterator);
     }
+    return true;
   }
 
-  public void printManual() {
+  public boolean printManual() {
     System.out.println("add \"listName\"");
     System.out.println("remove \"listName\"");
     System.out.println("add_deal \"listName\" \"dealName\"");
@@ -172,5 +169,6 @@ public class ApplicationController implements CommandLineServiceDelegate {
     System.out.println("save \"path\"");
     System.out.println("load \"path\"");
     System.out.println("exit");
+    return true;
   }
 }

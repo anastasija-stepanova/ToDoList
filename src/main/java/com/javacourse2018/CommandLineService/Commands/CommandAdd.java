@@ -4,8 +4,9 @@ import com.javacourse2018.CommandLineService.Command;
 
 public class CommandAdd extends Command {
   public void route() {
-    if (delegate != null) {
-      delegate.add(rawCommand.getArguments().get(0));
+    if (delegate == null) {
+      return;
     }
+    delegate.add(rawCommand.getArguments().get(0));
   }
 }

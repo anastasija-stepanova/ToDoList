@@ -4,9 +4,10 @@ import com.javacourse2018.CommandLineService.Command;
 
 public class CommandPrint extends Command {
   public void route() {
-    if (delegate != null) {
-      delegate.print();
+    if (delegate == null) {
+      return;
     }
+    delegate.print();
   }
 
 }

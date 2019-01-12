@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javacourse2018.Entity.Deal;
 import com.javacourse2018.Entity.DealList;
 import com.javacourse2018.Entity.Status;
-import com.sun.corba.se.spi.ior.ObjectKey;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,13 +13,15 @@ import java.util.List;
 
 public class Loader implements LoaderInterface {
 
-  public void save(String path, List<DealList> dealLists) {
+  public boolean save(String path, List<DealList> dealLists) {
     //into json file
     ObjectMapper mapper = new ObjectMapper();
     try {
       mapper.writeValue(new File(path), dealLists);
+      return true;
     } catch (IOException ex) {
       System.out.println("Error while writing file");
+      return false;
     }
   }
 
