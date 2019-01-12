@@ -1,9 +1,9 @@
 package com.javacourse2018.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javacourse2018.entity.Deal;
-import com.javacourse2018.entity.DealList;
-import com.javacourse2018.entity.Status;
+import com.javacourse2018.Entity.Deal;
+import com.javacourse2018.Entity.DealList;
+import com.javacourse2018.Entity.Status;
 import com.sun.corba.se.spi.ior.ObjectKey;
 
 import java.io.File;
